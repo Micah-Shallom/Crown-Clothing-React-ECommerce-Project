@@ -26,6 +26,15 @@
 
 .checkout-item .quantity {
   padding-left: 20px;
+  display: flex;
+}
+
+.checkout-item .quantity .arrow {
+  cursor: pointer;
+}
+
+.checkout-item .quantity .value {
+  margin: 0 10px;
 }
 
 .checkout-item .remove-button {
