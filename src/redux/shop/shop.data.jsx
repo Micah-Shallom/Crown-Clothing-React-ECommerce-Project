@@ -1,5 +1,7 @@
-const SHOP_DATA = [
-  {
+// So in order to being able to carry out efficient state normalization , instead of the whole data to be an array of objects, rather we make it an object of object with a key value that will effectively match the collectionUrlParams in our shop selector. The reason for this is that, iterating over an array of object which could grow into thousands of objects will be peformance costly as using the .find() higher order function will cause the javascript engine to run over each object until it finds a match. This can be really costly  if the object we are looking for is somewhere at the bottom of the array and thus this will definetly take time to load. So using objects is vital as we can simply target the particular object of interest with the right key .
+
+const SHOP_DATA = {
+  hats : {
     id: 1,
     title: 'Hats',
     routeName: 'hats',
@@ -60,7 +62,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  sneakers : {
     id: 2,
     title: 'Sneakers',
     routeName: 'sneakers',
@@ -115,7 +117,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+  jackets : {
     id: 3,
     title: 'Jackets',
     routeName: 'jackets',
@@ -152,7 +154,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+ womens : {
     id: 4,
     title: 'Womens',
     routeName: 'womens',
@@ -201,7 +203,7 @@ const SHOP_DATA = [
       }
     ]
   },
-  {
+ mens : {
     id: 5,
     title: 'Mens',
     routeName: 'mens',
@@ -244,6 +246,6 @@ const SHOP_DATA = [
       }
     ]
   }
-];
+};
 
 export default SHOP_DATA;
