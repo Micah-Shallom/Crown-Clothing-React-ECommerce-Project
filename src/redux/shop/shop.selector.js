@@ -32,5 +32,5 @@ export const selectCollection = collectionUrlParams => createSelector(
 )
 
 
-export default selectCollections
+export default selectCollections;
 
