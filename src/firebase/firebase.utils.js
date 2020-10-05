@@ -22,6 +22,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   const snapShot = await userRef.get();
 
+
   if (!snapShot.exists) {
     const { displayName, email } = userAuth;
     const createdAt = new Date();
@@ -35,10 +36,26 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
     } catch (error) {
       console.log('error creating user', error.message);
     }
+  }else{
+    return userRef;
   }
-
-  return userRef;
 };
+
+//Trying to pass my shopdata into firebase hence the need to create a collection/query reference on firestore first using the below function.
+export const addCollectionAndDocuments = async (collectionKey , objectToAdd) => {
+  const collectionRef = firestore.collection(collectionKey);
+
+  const batch = firestore.batch();
+
+  objectToAdd.forEach(obj => {
+    const newDocRef = collectionRef.doc();
+    
+    batch.set(newDocRef , obj);
+  });
+
+  return await batch.commit();
+}
+
 
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();

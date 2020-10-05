@@ -5,35 +5,37 @@ import {Route , Switch , Redirect} from 'react-router-dom'
 import ShopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
-import { auth, createUserProfileDocument } from './firebase/firebase.utils';
+import { addCollectionAndDocuments, auth, createUserProfileDocument } from './firebase/firebase.utils';
 import { connect } from 'react-redux'
 import { setCurrentUser } from './redux/user/user-actions'
 import { createStructuredSelector } from 'reselect'
 import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/checkout/checkout.component';
+import { selectCollectionForPreview } from './redux/shop/shop.selector';
 
 class App extends Component {
 
   unsubscribeFromAuth = null;
 
   componentDidMount() {
-    const { setCurrentUser } = this.props
+
+    const { setCurrentUser, collectionsArray } = this.props
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
         userRef.onSnapshot(snapShot => {
           setCurrentUser({
-            currentUser: {
               id: snapShot.id,
               ...snapShot.data()
-            }
           });
-
         });
       }
-
-      setCurrentUser({ currentUser: userAuth });
+      
+      setCurrentUser(userAuth );
+      //Am suppose to remove the following marked code with (**) after setting the collection ref already on our firestore database
+      // **
+      // addCollectionAndDocuments('collections', collectionsArray.map(({title,items}) => ({title,items})))
     });
   }
 
@@ -49,11 +51,11 @@ class App extends Component {
           <Route exact path='/' component={HomePage} />
           <Route path='/shop' component={ShopPage} />
           <Route path='/checkout' component={CheckoutPage} />
-          <Route path='/signin' component={SignInAndSignUpPage} />
-          {/* <Route exact path='/' render={ () => 
+
+          <Route exact path='/signin' render={ () => 
           this.props.currentUser ? 
-          (<Redirect to='/signin'/>) : 
-          (<SignInAndSignUpPage/>)}/> */}
+          (<Redirect to='/'/>) : 
+          (<SignInAndSignUpPage/>)} />
         </Switch>
       </div>
     );
@@ -61,7 +63,9 @@ class App extends Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser : selectCurrentUser
+  currentUser : selectCurrentUser,
+  //**
+  // collectionsArray : selectCollectionForPreview
 })
 
 

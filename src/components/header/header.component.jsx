@@ -1,5 +1,4 @@
 import React from 'react';
-// import './header.styles.scss';
 import { ReactComponent as Logo }  from '../../assets/4.4 crown.svg.svg'
 import { auth } from '../../firebase/firebase.utils';
 import { connect } from 'react-redux'
@@ -12,34 +11,38 @@ import { HeaderContainer , LogoContainer , OptionsContainer , OptionLink } from 
 
 
 
-const Header = ({currentUser , hidden}) => (
-  <HeaderContainer>
-    <LogoContainer  to='/'>
-      <Logo  />
-    </LogoContainer>
-    <OptionsContainer >
-      <OptionLink  to='/shop'>
-        SHOP
-      </OptionLink>
-      <OptionLink  to='/shop'>
-        CONTACT
-      </OptionLink>
-      { currentUser !== null ? (
-        <OptionLink as='div' onClick={() => auth.signOut()}>
-          SIGN OUT
+const Header = ({currentUser, hidden}) => {
+  return (
+    <HeaderContainer>
+      <LogoContainer  to='/'>
+        <Logo  />
+      </LogoContainer>
+      <OptionsContainer >
+        <OptionLink  to='/shop'>
+          SHOP
         </OptionLink>
-      ) : (
-        <OptionLink  to='/signin'>
-          SIGN IN
+        <OptionLink  to='/shop'>
+          CONTACT
         </OptionLink>
-      )}
-      <CartIcon/>
-    </OptionsContainer>
-      {
-        hidden ? null : <CartDropdown/>
-      }
-  </HeaderContainer>
-);
+        
+        { currentUser ? 
+          <OptionLink as='div' onClick={() => auth.signOut()}>
+            SIGN OUT
+          </OptionLink>
+          :
+          <OptionLink  to='/signin'>
+            SIGN IN
+          </OptionLink>
+         
+        }
+        <CartIcon/>
+      </OptionsContainer>
+        {
+          hidden ? null : <CartDropdown/>
+        }
+    </HeaderContainer>
+  );
+}
 
 // const mapStateToProps = state => ({
 //   currentUser : state.user.currentUser
