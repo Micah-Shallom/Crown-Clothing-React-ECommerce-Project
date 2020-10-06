@@ -19,7 +19,7 @@ const { createSelector } = require("reselect")
 
 export const selectCollectionForPreview = createSelector(
   [selectCollections],
-  collections => Object.keys(collections).map(key => collections[key])
+  collections => collections ?  Object.keys(collections).map(key => collections[key]) : []
 )
 
 export const selectCollection = collectionUrlParams => createSelector(
@@ -28,7 +28,7 @@ export const selectCollection = collectionUrlParams => createSelector(
   // collections => collections.find(collection => collection.id === COLLECTION_ID_MAP[collectionUrlParams])
 
     // to
-  collections => collections[collectionUrlParams]
+  collections =>  (collections ? collections[collectionUrlParams] : null)
 )
 
 
