@@ -5,11 +5,11 @@ import { CheckoutItemContainer, ImageContainer, QuantityContainer, RemoveButtonC
 
 
 const CheckOutItem = ({cartItem , clearItem, addItem , removeItem})  => {
-  const {name,ImageUrl,price,quantity} = cartItem
+  const {name,imageUrl,price,quantity} = cartItem
   return (
-    <CheckoutItemContainer >
+    <CheckoutItemContainer>
       <ImageContainer >
-        <img src={ImageUrl} alt="item"/>
+        <img src={`${imageUrl}`} alt="item"/>
       </ImageContainer>
       <TextContainer >{name}</TextContainer>
       <QuantityContainer >

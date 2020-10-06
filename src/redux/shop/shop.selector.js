@@ -31,6 +31,17 @@ export const selectCollection = collectionUrlParams => createSelector(
   collections =>  (collections ? collections[collectionUrlParams] : null)
 )
 
+//now am trying to provide the state of our isFetching data into the global environment so that i can transfer its value which will be useful for activating the spinner in our shop component
+export const selectCollectionFetchingState = createSelector(
+  [selectShop],
+  shop => shop.isFetching
+)
+
+export const selectCollectionLoadedState = createSelector(
+  [selectShop],
+  //note the use of the double bang helps to tells in a manner that a !!null = false while a !!{object} = true.
+  shop => !!shop.collections
+)
 
 export default selectCollections;
 
