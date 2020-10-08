@@ -1,27 +1,24 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import FormInput from '../form-input/form-input.component'
 import CustomButton from '../custom-button/custom-button.component'
 import {auth, signInWithGoogle} from '../../firebase/firebase.utils.js'
 
 import { SignInTitle , SignInContainer, ButtonsContainer } from './sign-in.styles.js'
 
-class SignIn extends Component {
-  constructor(props) {
-    super(props)
-  
-    this.state = {
-       email : '',
-       password : ''
-    }
-  }
+const SignIn = () => {
+ 
+  const [userCredentials , setCredentials] = useState({
+    email : '',
+    password: ''
+  })
 
-  handleSubmit = async event => {
+ const  handleSubmit = async event => {
     event.preventDefault();
-    const { email , password} =this.state;
+    const { email , password} = userCredentials;
 
     try {
       await auth.signInWithEmailAndPassword(email , password)
-      this.setState({
+      setCredentials({
         email : '',
         password : ''
       })
@@ -30,34 +27,34 @@ class SignIn extends Component {
     }
 
   }
-  handleChange = event => {
+ const  handleChange = event => {
     const {value , name} = event.target;
 
-    this.setState({
+    setCredentials({
+      ...userCredentials,
       [name] : value
     })
   }
   
-  render() {
     return (
       <SignInContainer>
       <SignInTitle>I already have an account</SignInTitle>
       <span>Sign in with your email and password</span>
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={handleSubmit}>
 
         <FormInput
         type="email" 
         name='email' 
-        value={this.state.email} 
-        handleChange={this.handleChange}
+        value={userCredentials.email} 
+        handleChange={handleChange}
         label = 'email'
         required/>
 
         <FormInput
         type="password" 
         name='password' 
-        value={this.state.password} 
-        handleChange={this.handleChange}
+        value={userCredentials.password} 
+        handleChange={handleChange}
         label = 'password'
         required/>
 
@@ -74,6 +71,5 @@ class SignIn extends Component {
       </SignInContainer>
     )
   }
-}
 
 export default SignIn;

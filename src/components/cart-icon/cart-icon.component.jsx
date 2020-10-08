@@ -17,7 +17,7 @@ const CartIcon = ( {toggleCartHidden , itemCount} ) => (
 
 const mapDispatchToProps = dispatch => ({
   toggleCartHidden : () => dispatch(toggleCartHidden())
-})
+});
 
 //  BEFORE USING SELECTORS TO MEMOIZE SPECIFIC SECTION OF OUR STATE TO PREVENT RENDERING WHEN A DIFFERENT STATE NOT CONNECTED TO THIS PARTICULAR STATE IS CHANGED
 // const mapStateToProps = ({ cart : {cartItems} }) => ({

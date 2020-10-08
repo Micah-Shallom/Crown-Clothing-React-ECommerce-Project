@@ -34,14 +34,14 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
         ...additionalData
       });
     } catch (error) {
-      console.log('error creating user', error.message);
+      console.log('Error creating user', error.message);
     }
   }else{
     return userRef;
   }
 };
 
-//Trying to pass my shopdata into firebase hence the need to create a collection/query reference on firestore first using the below function.
+//Trying to pass my shopdata into firebase hence the need to create a collection/query reference on firestore first using the below function. This particular block of code is responsible for creating a collection reference,creating document keys for each looped array of data as well as setting each document reference to its corresponding object. Its a very smart piece of code.
 export const addCollectionAndDocuments = async (collectionKey , objectToAdd) => {
   const collectionRef = firestore.collection(collectionKey);
 

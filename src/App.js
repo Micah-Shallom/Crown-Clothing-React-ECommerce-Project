@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, useEffect} from 'react';
 import './App.scss';
 import HomePage from './pages/homepage/homepage.component.jsx';
 import {Route , Switch , Redirect} from 'react-router-dom'
@@ -13,14 +13,12 @@ import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/checkout/checkout.component';
 import { selectCollectionForPreview } from './redux/shop/shop.selector';
 
-class App extends Component {
+//Convert class based to functional component to make use of useEffect to handle componentdidmount
 
-  unsubscribeFromAuth = null;
+const App = ( { setCurrentUser, currentUser, collectionsArray } ) => {
 
-  componentDidMount() {
-
-    const { setCurrentUser, collectionsArray } = this.props
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+  useEffect  (() => {
+    const unsubscribeFromAuthstream = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
@@ -37,13 +35,42 @@ class App extends Component {
       // **
       // addCollectionAndDocuments('collections', collectionsArray.map(({title,items}) => ({title,items})))
     });
-  }
 
-  componentWillUnmount() {
-    this.unsubscribeFromAuth();
-  }
+    return () => {
+      unsubscribeFromAuthstream()
+    }
+  },[])
 
-  render() {
+
+
+  // unsubscribeFromAuth = null;
+
+  // componentDidMount() {
+
+  //   const { setCurrentUser, collectionsArray } = this.props
+  //   this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+  //     if (userAuth) {
+  //       const userRef = await createUserProfileDocument(userAuth);
+
+  //       userRef.onSnapshot(snapShot => {
+  //         setCurrentUser({
+  //             id: snapShot.id,
+  //             ...snapShot.data()
+  //         });
+  //       });
+  //     }
+      
+  //     setCurrentUser(userAuth );
+  //     //Am suppose to remove the following marked code with (**) after setting the collection ref already on our firestore database
+  //     // **
+  //     // addCollectionAndDocuments('collections', collectionsArray.map(({title,items}) => ({title,items})))
+  //   });
+  // }
+
+  // componentWillUnmount() {
+  //   this.unsubscribeFromAuth();
+  // }
+
     return (
       <div>
         <Header/>
@@ -52,15 +79,18 @@ class App extends Component {
           <Route path='/shop' component={ShopPage} />
           <Route path='/checkout' component={CheckoutPage} />
 
-          <Route exact path='/signin' render={ () => 
+          {/* <Route exact path='/signin' render={ () => 
           this.props.currentUser ? 
+          (<Redirect to='/'/>) : 
+          (<SignInAndSignUpPage/>)} /> */}
+          <Route exact path='/signin' render={ () => 
+          currentUser ? 
           (<Redirect to='/'/>) : 
           (<SignInAndSignUpPage/>)} />
         </Switch>
       </div>
     );
   }
-}
 
 const mapStateToProps = createStructuredSelector({
   currentUser : selectCurrentUser,
