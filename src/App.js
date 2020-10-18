@@ -1,5 +1,4 @@
 import React, {Component, useEffect} from 'react';
-import './App.scss';
 import HomePage from './pages/homepage/homepage.component.jsx';
 import {Route , Switch , Redirect} from 'react-router-dom'
 import ShopPage from './pages/shop/shop.component';
@@ -12,6 +11,7 @@ import { createStructuredSelector } from 'reselect'
 import { selectCurrentUser } from './redux/user/user.selector';
 import CheckoutPage from './pages/checkout/checkout.component';
 import { selectCollectionForPreview } from './redux/shop/shop.selector';
+import { GlobalStyles } from './global.styles.js';
 
 //Convert class based to functional component to make use of useEffect to handle componentdidmount
 
@@ -22,7 +22,7 @@ const App = ( { setCurrentUser, currentUser, collectionsArray } ) => {
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth);
 
-        userRef.onSnapshot(snapShot => {
+        await userRef.onSnapshot(snapShot => {
           setCurrentUser({
               id: snapShot.id,
               ...snapShot.data()
@@ -73,6 +73,7 @@ const App = ( { setCurrentUser, currentUser, collectionsArray } ) => {
 
     return (
       <div>
+      <GlobalStyles/>
         <Header/>
         <Switch>
           <Route exact path='/' component={HomePage} />

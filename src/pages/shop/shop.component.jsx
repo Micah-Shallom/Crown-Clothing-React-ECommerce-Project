@@ -51,7 +51,7 @@ const CollectionPageWithSpinner = withSpinner(CollectionPage);
 
 useEffect(() => {
   fetchCollectionsAsync();
-},[fetchCollectionsAsync])
+},[fetchCollectionsAsync]);
 
   // componentDidMount() {
   //   const {fetchCollectionsAsync} = this.props;
@@ -60,21 +60,21 @@ useEffect(() => {
   //   fetchCollectionsAsync();
 
 
-  //   // const {updateCollections} = this.props
+    // const {updateCollections} = this.props
     
-  //   //we use the traditional way of consuming promises with the .then() method just to show us how to subscribe to a backend other than firebase but later this block of code wont be here rather would be pushed into redux for an asynchronous redux call
-  //         // const CollectionRef = firestore.collection('collections');
-  //         // CollectionRef.get().then(snapshot => {
-  //         //   const collectionsMap = convertCollectionsToMap(snapshot)
-  //         //    updateCollections(collectionsMap);
-  //         //    this.setState({loading : false})
-  //   //  })
+    //we use the traditional way of consuming promises with the .then() method just to show us how to subscribe to a backend other than firebase but later this block of code wont be here rather would be pushed into redux for an asynchronous redux call
+          // const CollectionRef = firestore.collection('collections');
+          // CollectionRef.get().then(snapshot => {
+          //   const collectionsMap = convertCollectionsToMap(snapshot)
+          //    updateCollections(collectionsMap);
+          //    this.setState({loading : false})
+    //  })
 
-  //   // CollectionRef.onSnapshot(async snapshot => {
-  //   //  const collectionsMap = convertCollectionsToMap(snapshot)
-  //   //   updateCollections(collectionsMap);
-  //   //   this.setState({loading : false})
-  //   // })
+    // CollectionRef.onSnapshot(async snapshot => {
+    //  const collectionsMap = convertCollectionsToMap(snapshot)
+    //   updateCollections(collectionsMap);
+    //   this.setState({loading : false})
+    // })
   // }
   
     // the inverse value of the isCollectionLoadedAlready helps us to only render our components only when the collections has been fully received hence we just keep loading our spinner. Notice that we had to reverse the value with the (!) sign .this is because we only want to render our component when it isCollectionLoadedAlready is true. Just check your withSpinner component for more details.

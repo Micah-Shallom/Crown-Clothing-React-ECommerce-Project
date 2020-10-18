@@ -39,7 +39,7 @@ export const selectCollectionFetchingState = createSelector(
 
 export const selectCollectionLoadedState = createSelector(
   [selectShop],
-  //note the use of the double bang helps to tells in a manner that a !!null = false while a !!{object} = true.
+  //note the use of the double bang helps to tells in a manner that a !!null = false while a !!{object} = true. In order words it helps to classify returns either as a false or a true boolean
   shop => !!shop.collections
 )
 
