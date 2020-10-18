@@ -1,15 +1,17 @@
-import React, { Component, useEffect } from 'react'
+import React, {  useEffect , Suspense , lazy } from 'react'
 import { Route} from 'react-router-dom';
-import CollectionsOverview from '../../components/collections-overview/collections-overview.component'
-import CollectionPage from '../collection/collection.component';
 import updateCollections from '../../redux/shop/shop.actions';
 import { connect } from 'react-redux';
 import withSpinner from '../../components/with-spinner/withSpinner.component';
 import fetchCollectionsAsync from '../../redux/shop/shop.actions';
 import { createStructuredSelector } from 'reselect';
 import { selectCollectionFetchingState, selectCollectionLoadedState } from '../../redux/shop/shop.selector';
+import Spinner from '../../components/Spinner/Spinner.component';
 
 //Since the shop component collects the data which is then pushed to the collections page and collectionoverview page, we then apply the withSpinner HOC here as it is vital to.
+
+const CollectionsOverview = lazy(() => import('../../components/collections-overview/collections-overview.component'))
+const CollectionPage = lazy(() => import('../collection/collection.component'))
 
 const CollectionsOverviewWithSpinner = withSpinner(CollectionsOverview);
 const CollectionPageWithSpinner = withSpinner(CollectionPage);
@@ -82,15 +84,18 @@ useEffect(() => {
     // const {loading} = this.state;
     return  (
       <div className="shop-page">
-        <Route 
-          exact path={`${match.url}`} 
-          render={(props) => <CollectionsOverviewWithSpinner isLoading={!isCollectionLoadedAlready} {...props} />} 
-        />
-        
-        <Route 
-          path={`${match.url}/:collectionId`} 
-          render={(props) => <CollectionPageWithSpinner isLoading={!isCollectionLoadedAlready} {...props} />} 
-        />
+      <Suspense fallback={<Spinner/>}>
+          <Route 
+              exact path={`${match.url}`} 
+              render={(props) => <CollectionsOverviewWithSpinner isLoading={!isCollectionLoadedAlready} {...props} />} 
+            />
+            
+            <Route 
+              path={`${match.url}/:collectionId`} 
+              render={(props) => <CollectionPageWithSpinner isLoading={!isCollectionLoadedAlready} {...props} />} 
+            />
+      </Suspense>
+       
       </div>
     )
   }
