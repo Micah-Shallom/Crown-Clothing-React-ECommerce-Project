@@ -27,6 +27,7 @@ const invertedButtonStyles = css`
 const googleSignInStyles = css`
   background-color: #4285f4;
   color: white;
+  border: none;
 
   &:hover {
     background-color: #357ae8;
@@ -43,7 +44,7 @@ const getButtonStyles = props => {
 };
 
 export const CustomButtonContainer = styled.button`
-  min-width: 165px;
+  min-width: 160px;
   width: auto;
   height: 50px;
   letter-spacing: 0.5px;
@@ -58,4 +59,9 @@ export const CustomButtonContainer = styled.button`
   justify-content: center;
 
   ${getButtonStyles};
+
+  @media screen and (max-width : 400px){
+    font-size : 12px;
+    padding : 0 30px;
+  }
 `;

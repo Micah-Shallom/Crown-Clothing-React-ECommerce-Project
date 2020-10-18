@@ -11,7 +11,7 @@ export const CheckoutItemContainer = styled.div`
 `;
 
 export const ImageContainer = styled.div`
-  width: 23%;
+  width: 22%;
     padding-right: 15px;
 
     img {
@@ -25,11 +25,12 @@ export const TextContainer = styled.span`
 `;
 
 export const QuantityContainer = styled(TextContainer)`
-  padding-left: 20px;
+  padding-left: 0px;
   display: flex;
 
   div {
     cursor: pointer;
+    
   }
 
   span {
@@ -40,4 +41,5 @@ export const QuantityContainer = styled(TextContainer)`
 export const RemoveButtonContainer = styled.div`
   padding-left: 12px;
   cursor: pointer;
+  color : crimson;
 `;
