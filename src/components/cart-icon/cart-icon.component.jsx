@@ -9,7 +9,17 @@ import {CartIconContainer,ItemCountContainer,ShoppingIcon} from './cart-icon.sty
 
 
 const CartIcon = ( {toggleCartHidden , itemCount} ) => (
-  <CartIconContainer onClick={toggleCartHidden}>
+  <CartIconContainer 
+  onClick={toggleCartHidden}
+  animate ={{
+    scale : 1.2,
+    transition : {
+      yoyo : Infinity,
+      duration : '.8'
+    }
+  }}
+
+  >
     <ShoppingIcon className='shopping-icon'/>
     <ItemCountContainer className='item-count'> {itemCount} </ItemCountContainer>
   </CartIconContainer>

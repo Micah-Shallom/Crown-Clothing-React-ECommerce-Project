@@ -1,6 +1,6 @@
 import React, {  useEffect , Suspense , lazy } from 'react'
 import { Route} from 'react-router-dom';
-import updateCollections from '../../redux/shop/shop.actions';
+// import updateCollections from '../../redux/shop/shop.actions';
 import { connect } from 'react-redux';
 import withSpinner from '../../components/with-spinner/withSpinner.component';
 import fetchCollectionsAsync from '../../redux/shop/shop.actions';

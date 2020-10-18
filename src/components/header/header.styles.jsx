@@ -1,12 +1,19 @@
-import styled,{css} from 'styled-components';
+import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import {motion} from 'framer-motion';
 
-export const HeaderContainer = styled.div `
+export const HeaderContainer = styled(motion.div) `
   height: 70px;
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
+  position : fixed;
+  top : 0;
+  left : 0;
+  background-color: white;
+  z-index : 10000000000000000;
+  box-shadow: 0px 6px 20px -2px rgba(0,0,0,.2);
 
   @media screen and (max-width : 800px){
     height : 60px;
@@ -45,7 +52,7 @@ export const OptionsContainer = styled.div `
 // export const OptionDiv = styled.div `
 //   ${OptionContainerStyles}
 // `
-export const OptionLink = styled(Link) `
+export const OptionLink = styled(Link)`
   padding: 10px 15px;
   cursor: pointer;
 `;

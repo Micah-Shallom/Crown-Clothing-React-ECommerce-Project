@@ -12,8 +12,13 @@ import { HeaderContainer , LogoContainer , OptionsContainer , OptionLink } from 
 
 
 const Header = ({currentUser, hidden}) => {
+    
   return (
-    <HeaderContainer>
+    <HeaderContainer
+      initial = {{y : -150}}
+      animate = {{y : 0}}
+      transition = {{delay : 0.2, type:'spring', stiffness: 250, mass : 1}}
+    >
       <LogoContainer  to='/'>
         <Logo  />
       </LogoContainer>

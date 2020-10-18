@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import { ReactComponent as ShoppingIconSVG } from '../../assets/11.2 shopping-bag.svg.svg'
+import {motion} from 'framer-motion';
 
-export const CartIconContainer = styled.div `
+export const CartIconContainer = styled(motion.div) `
   width: 45px;
   height: 45px;
   position: relative;

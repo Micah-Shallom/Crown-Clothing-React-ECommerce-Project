@@ -3,6 +3,7 @@ import styled from 'styled-components';
 export const CollectionPageContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top : 60px;
 
   @media screen and (max-width : 800px){
     padding : 10px;
